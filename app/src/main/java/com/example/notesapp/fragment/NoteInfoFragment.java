@@ -1,7 +1,10 @@
 package com.example.notesapp.fragment;
 
+import static com.example.notesapp.MainActivity.NOTE_KEY;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,12 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.notesapp.Note;
+import com.example.notesapp.NotesRepo;
+import com.example.notesapp.R;
 import com.example.notesapp.databinding.FragmentNoteInfoBinding;
 
 public class NoteInfoFragment extends Fragment {
 
-    public static final String TITLE_KEY = "TITLE_KEY";
-    public static final String TEXT_KEY = "TEXT_KEY";
     private FragmentNoteInfoBinding binding;
 
     @Nullable
@@ -28,24 +31,33 @@ public class NoteInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        Note note = (Note) getArguments().getSerializable(NOTE_KEY);
+
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
+        binding.toolbar.getMenu().findItem(R.id.menu_delete_forever)
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem item) {
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                        NotesRepo.noteList.remove(note);
+                        return true;
+                    }
+                });
 
-        String title = getArguments().getString(TITLE_KEY);
-        String text = getArguments().getString(TEXT_KEY);
 
-        binding.titleView.setText(title);
-        binding.textView.setText(text);
+        binding.titleView.setText(note.getTitle());
+        binding.textView.setText(note.getText());
     }
 
+    @NonNull
     public static NoteInfoFragment newInstance(Note note) {
         Bundle bundle = new Bundle();
-        bundle.putString(TITLE_KEY, note.getTitle());
-        bundle.putString(TEXT_KEY, note.getText());
+        bundle.putSerializable(NOTE_KEY, note);
 
         NoteInfoFragment noteInfoFragment = new NoteInfoFragment();
         noteInfoFragment.setArguments(bundle);

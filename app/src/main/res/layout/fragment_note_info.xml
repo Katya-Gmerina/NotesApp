@@ -14,6 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:menu="@menu/menu_note_info"
             app:navigationIcon="@drawable/ic_arrow"
             app:titleTextColor="@color/white" />
     </com.google.android.material.appbar.AppBarLayout>

@@ -15,4 +15,8 @@ public class NotesRepo {
     public static void addNote(Note note) {
         noteList.add(note);
     }
+
+    public static void updateNote(Note note, int index) {
+        noteList.set(index, note);
+    }
 }

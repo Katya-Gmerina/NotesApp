@@ -8,7 +8,7 @@ import com.example.notesapp.databinding.ActivityMainBinding;
 import com.example.notesapp.fragment.MainFragment;
 
 public class MainActivity extends FragmentActivity {
-
+    public static final String NOTE_KEY = "NOTE_KEY";
     private ActivityMainBinding binding;
 
     @Override
