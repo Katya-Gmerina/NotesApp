@@ -9,16 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.notesapp.databinding.FragmentNoteChangeBinding;
+import com.example.notesapp.databinding.FragmentNoteAddBinding;
+
 
 public class NoteChangeFragment extends Fragment {
 
-    private FragmentNoteChangeBinding binding;
+    private FragmentNoteAddBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentNoteChangeBinding.inflate(inflater, container, false);
+        binding = FragmentNoteAddBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 }
