@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.notesapp.MainViewModel;
 import com.example.notesapp.Note;
-import com.example.notesapp.NotesRepo;
 import com.example.notesapp.R;
 import com.example.notesapp.databinding.FragmentNoteAddBinding;
 
@@ -31,6 +32,8 @@ public class NoteChangeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
 
         Note note = (Note) getArguments().getSerializable(NOTE_KEY);
 
@@ -50,9 +53,7 @@ public class NoteChangeFragment extends Fragment {
                         String text = binding.textView.getText().toString();
 
                         if (!text.isEmpty()) {
-                            int noteIndex = NotesRepo.noteList.indexOf(note);
-                            Note note = new Note(title, text);
-                            NotesRepo.updateNote(note, noteIndex);
+                            mainViewModel.update(note);
                             requireActivity().getSupportFragmentManager().popBackStack();
                         }
 

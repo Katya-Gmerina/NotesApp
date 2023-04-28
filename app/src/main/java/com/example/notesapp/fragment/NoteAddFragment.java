@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.notesapp.MainViewModel;
 import com.example.notesapp.Note;
 import com.example.notesapp.NotesRepo;
 import com.example.notesapp.R;
@@ -28,6 +30,8 @@ public class NoteAddFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
         binding.toolbar.setTitle(R.string.app_name);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +49,7 @@ public class NoteAddFragment extends Fragment {
 
                         if (!text.isEmpty()) {
                             Note note = new Note(title, text);
-                            NotesRepo.addNote(note);
+                            mainViewModel.insert(note);
                             requireActivity().getSupportFragmentManager().popBackStack();
                         }
 

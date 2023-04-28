@@ -8,11 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notesapp.MainViewModel;
 import com.example.notesapp.Note;
-import com.example.notesapp.NotesRepo;
 import com.example.notesapp.R;
 import com.example.notesapp.adapter.NotesAdapter;
 import com.example.notesapp.adapter.OnNoteClickedListener;
@@ -32,6 +33,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
         binding.toolbar.setTitle(R.string.app_name);
 
         RecyclerView notesRecyclerView = binding.notesRecyclerView;
@@ -39,7 +42,7 @@ public class MainFragment extends Fragment {
         notesRecyclerView.setAdapter(adapter);
         notesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        for (Note note : NotesRepo.noteList) {
+        for (Note note : mainViewModel.getAllNotes()) {
             adapter.addNote(note);
         }
 
@@ -57,7 +60,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onNoteClicked(Note note) {
                 NoteInfoFragment noteInfoFragment = NoteInfoFragment.newInstance(note);
-                toFragment(noteInfoFragment, note);
+                toFragment(noteInfoFragment);
             }
         });
 
@@ -65,13 +68,13 @@ public class MainFragment extends Fragment {
             @Override
             public boolean onNoteLongClicked(Note note) {
                 NoteChangeFragment noteChangeFragment = NoteChangeFragment.newInstance(note);
-                toFragment(noteChangeFragment, note);
+                toFragment(noteChangeFragment);
                 return true;
             }
         });
     }
 
-    private void toFragment(Fragment fragment, Note note) {
+    private void toFragment(Fragment fragment) {
         requireActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_frag, fragment).addToBackStack(null)
                 .commit();

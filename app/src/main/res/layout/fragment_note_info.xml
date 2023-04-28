@@ -37,18 +37,20 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="16dp">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/title_view"
                     style="@style/TextAppearance.Material3.TitleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="2"
+                    app:backgroundTint="@android:color/transparent"
                     tools:text="Title" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/text_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:backgroundTint="@android:color/transparent"
                     tools:text="Text" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

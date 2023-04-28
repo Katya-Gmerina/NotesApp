@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.notesapp.database.Database;
 import com.example.notesapp.databinding.ActivityMainBinding;
 import com.example.notesapp.fragment.MainFragment;
 
@@ -14,6 +15,8 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Database.initDatabase(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

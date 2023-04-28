@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.notesapp.MainViewModel;
 import com.example.notesapp.Note;
-import com.example.notesapp.NotesRepo;
 import com.example.notesapp.R;
 import com.example.notesapp.databinding.FragmentNoteInfoBinding;
 
@@ -31,6 +32,8 @@ public class NoteInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+        MainViewModel mainViewModel = new ViewModelProvider(requireActivity()).get(MainViewModel.class);
+
         Note note = (Note) getArguments().getSerializable(NOTE_KEY);
 
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -43,12 +46,11 @@ public class NoteInfoFragment extends Fragment {
                 .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(@NonNull MenuItem item) {
+                        mainViewModel.delete(note);
                         requireActivity().getSupportFragmentManager().popBackStack();
-                        NotesRepo.noteList.remove(note);
                         return true;
                     }
                 });
-
 
         binding.titleView.setText(note.getTitle());
         binding.textView.setText(note.getText());
