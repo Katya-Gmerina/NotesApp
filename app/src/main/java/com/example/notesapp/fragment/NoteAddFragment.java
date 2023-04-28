@@ -13,17 +13,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.notesapp.MainViewModel;
 import com.example.notesapp.Note;
-import com.example.notesapp.NotesRepo;
 import com.example.notesapp.R;
-import com.example.notesapp.databinding.FragmentNoteAddBinding;
+import com.example.notesapp.databinding.FragmentNoteInfoBinding;
 
 public class NoteAddFragment extends Fragment {
-    private FragmentNoteAddBinding binding;
+    private FragmentNoteInfoBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentNoteAddBinding.inflate(inflater, container, false);
+        binding = FragmentNoteInfoBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -39,22 +38,27 @@ public class NoteAddFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
-        binding.toolbar.getMenu().findItem(R.id.menu_complete)
-                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(@NonNull MenuItem item) {
 
-                        String title = binding.titleView.getText().toString();
-                        String text = binding.textView.getText().toString();
+        MenuItem completeItem = binding.toolbar.getMenu().findItem(R.id.menu_complete);
+        completeItem.setVisible(true);
+        completeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
 
-                        if (!text.isEmpty()) {
-                            Note note = new Note(title, text);
-                            mainViewModel.insert(note);
-                            requireActivity().getSupportFragmentManager().popBackStack();
-                        }
+                String title = binding.titleView.getText().toString();
+                String text = binding.textView.getText().toString();
 
-                        return true;
-                    }
-                });
+                if (!text.isEmpty()) {
+                    Note note = new Note();
+                    note.setTitle(title);
+                    note.setText(text);
+
+                    mainViewModel.insert(note);
+
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                }
+                return true;
+            }
+        });
     }
 }
