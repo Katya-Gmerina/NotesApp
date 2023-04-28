@@ -16,13 +16,18 @@
             style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textStyle="bold"
             tools:text="Text" />
 
         <TextView
             android:id="@+id/text_view"
-            style="@style/TextAppearance.Material3.BodyMedium"
+            style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Text" />
+            android:ellipsize="end"
+            android:maxLines="2"
+            tools:text="@tools:sample/lorem/random" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

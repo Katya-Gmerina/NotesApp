@@ -2,11 +2,13 @@ package com.example.notesapp.fragment;
 
 import static com.example.notesapp.MainActivity.NOTE_KEY;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,24 +38,64 @@ public class NoteInfoFragment extends Fragment {
 
         Note note = (Note) getArguments().getSerializable(NOTE_KEY);
 
+        binding.toolbar.setTitle(R.string.app_name);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
-        binding.toolbar.getMenu().findItem(R.id.menu_delete_forever)
-                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(@NonNull MenuItem item) {
-                        mainViewModel.delete(note);
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                        return true;
-                    }
-                });
+
+        MenuItem completeItem = binding.toolbar.getMenu().findItem(R.id.menu_complete);
+        completeItem.setVisible(false);
+        completeItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+
+                String title = binding.titleView.getText().toString();
+                String text = binding.textView.getText().toString();
+
+                if (!title.isEmpty() && !text.isEmpty()) {
+                    note.setTitle(title);
+                    note.setText(text);
+
+                    mainViewModel.update(note);
+
+                    binding.titleView.clearFocus();
+                    binding.textView.clearFocus();
+
+                    InputMethodManager imm =
+                            (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(binding.titleView.getWindowToken(), 0);
+                    imm.hideSoftInputFromWindow(binding.textView.getWindowToken(), 0);
+                }
+                return true;
+            }
+        });
+
+        binding.toolbar.getMenu().findItem(R.id.menu_delete).setVisible(true);
+        MenuItem deleteItem = binding.toolbar.getMenu().findItem(R.id.menu_delete_forever);
+        deleteItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                mainViewModel.delete(note);
+                requireActivity().getSupportFragmentManager().popBackStack();
+                return true;
+            }
+        });
+
+        View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                completeItem.setVisible(hasFocus);
+            }
+        };
 
         binding.titleView.setText(note.getTitle());
+        binding.titleView.setOnFocusChangeListener(onFocusChangeListener);
+
         binding.textView.setText(note.getText());
+        binding.textView.setOnFocusChangeListener(onFocusChangeListener);
     }
 
     @NonNull

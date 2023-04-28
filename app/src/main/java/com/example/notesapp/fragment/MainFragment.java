@@ -17,7 +17,6 @@ import com.example.notesapp.Note;
 import com.example.notesapp.R;
 import com.example.notesapp.adapter.NotesAdapter;
 import com.example.notesapp.adapter.OnNoteClickedListener;
-import com.example.notesapp.adapter.OnNoteLongClickedListener;
 import com.example.notesapp.databinding.FragmentMainBinding;
 
 public class MainFragment extends Fragment {
@@ -49,10 +48,7 @@ public class MainFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container_frag, new NoteAddFragment())
-                        .addToBackStack(null)
-                        .commit();
+                toFragment(new NoteAddFragment());
             }
         });
 
@@ -61,15 +57,6 @@ public class MainFragment extends Fragment {
             public void onNoteClicked(Note note) {
                 NoteInfoFragment noteInfoFragment = NoteInfoFragment.newInstance(note);
                 toFragment(noteInfoFragment);
-            }
-        });
-
-        adapter.setNoteLongClickedListener(new OnNoteLongClickedListener() {
-            @Override
-            public boolean onNoteLongClicked(Note note) {
-                NoteChangeFragment noteChangeFragment = NoteChangeFragment.newInstance(note);
-                toFragment(noteChangeFragment);
-                return true;
             }
         });
     }
