@@ -8,7 +8,7 @@ public class MainViewModel extends ViewModel {
     private final NotesRepo notesRepo = new NotesRepo();
 
     public List<Note> getAllNotes() {
-        return notesRepo.getAllNotes();
+        return notesRepo.getAll();
     }
 
     public void insert(Note note) {
