@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.notesapp.Note;
 import com.example.notesapp.databinding.ItemNoteBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
 
@@ -31,6 +34,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note note = noteList.get(position);
+        holder.binding.dateView.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(new Date(note.getDate())));
         holder.binding.titleView.setText(note.getTitle());
         holder.binding.textView.setText(note.getText());
 
@@ -46,8 +50,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             public boolean onLongClick(View v) {
                 if (longClickedListener != null) {
                     return longClickedListener.onNoteLongClicked(note);
+
                 }
                 return false;
+
             }
         });
     }
@@ -68,6 +74,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
     public void addNote(Note note) {
         noteList.add(note);
         notifyItemInserted(noteList.size() - 1);
+
     }
 
     protected static class NoteViewHolder extends RecyclerView.ViewHolder {

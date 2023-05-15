@@ -41,25 +41,36 @@
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="16dp">
 
+
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/title_view"
                         style="@style/TextAppearance.Material3.TitleLarge"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Title"
+                        android:hint="@string/title"
                         android:maxLength="40"
                         android:textStyle="bold"
                         app:backgroundTint="@android:color/transparent"
                         tools:text="Title" />
+
+
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/text_view"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:hint="Text"
+                        android:hint="@string/text"
                         app:backgroundTint="@android:color/transparent"
                         tools:text="Text" />
+
+                    <TextView
+                        android:id="@+id/date_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:hint="@string/date"/>
+
                 </LinearLayout>
             </ScrollView>
         </androidx.cardview.widget.CardView>

@@ -29,5 +29,13 @@
             android:ellipsize="end"
             android:maxLines="2"
             tools:text="@tools:sample/lorem/random" />
+
+        <TextView
+            android:id="@+id/date_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:hint="@string/date"/>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

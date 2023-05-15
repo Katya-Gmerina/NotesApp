@@ -5,11 +5,11 @@ import com.example.notesapp.database.NoteDao;
 
 import java.util.List;
 
-public class NotesRepo {
+public class NotesRepo implements Repo<Note> {
 
-    private NoteDao noteDao = Database.getDatabase().noteDao();
+    private final NoteDao noteDao = Database.getDatabase().noteDao();
 
-    public List<Note> getAllNotes() {
+    public List<Note> getAll() {
         return noteDao.getAllNotes();
     }
 

@@ -20,6 +20,10 @@ import com.example.notesapp.Note;
 import com.example.notesapp.R;
 import com.example.notesapp.databinding.FragmentNoteInfoBinding;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class NoteInfoFragment extends Fragment {
 
     private FragmentNoteInfoBinding binding;
@@ -58,6 +62,7 @@ public class NoteInfoFragment extends Fragment {
                 if (!title.isEmpty() && !text.isEmpty()) {
                     note.setTitle(title);
                     note.setText(text);
+                    note.setDate(new Date().getTime());
 
                     mainViewModel.update(note);
 
@@ -96,6 +101,7 @@ public class NoteInfoFragment extends Fragment {
 
         binding.textView.setText(note.getText());
         binding.textView.setOnFocusChangeListener(onFocusChangeListener);
+        binding.dateView.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(new Date(note.getDate())));
     }
 
     @NonNull

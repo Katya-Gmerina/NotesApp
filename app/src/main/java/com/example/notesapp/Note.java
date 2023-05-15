@@ -4,13 +4,14 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Note implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
-
+    private long date = new Date().getTime();
     private String title = "";
     private String text = "";
 
@@ -18,6 +19,7 @@ public class Note implements Serializable {
     }
 
     public Note(String title, String text) {
+
         this.title = title;
         this.text = text;
     }
@@ -44,5 +46,13 @@ public class Note implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }
