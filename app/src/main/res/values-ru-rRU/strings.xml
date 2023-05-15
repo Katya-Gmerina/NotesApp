@@ -4,5 +4,8 @@
     <string name="title">Заголовок</string>
     <string name="text">Текст</string>
     <string name="delete">Удалить</string>
+<<<<<<< HEAD
     <string name="date">Дата</string>
+=======
+>>>>>>> origin/master
 </resources>
