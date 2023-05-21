@@ -49,6 +49,7 @@
                         android:layout_height="match_parent"
                         android:hint="@string/title"
                         android:maxLength="40"
+                        android:textSize="23sp"
                         android:textStyle="bold"
                         app:backgroundTint="@android:color/transparent"
                         tools:text="Title" />
@@ -61,6 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/text"
+                        android:textSize="19sp"
                         app:backgroundTint="@android:color/transparent"
                         tools:text="Text" />
 
@@ -69,6 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="right"
+                        android:textSize="15sp"
                         android:hint="@string/date"/>
 
                 </LinearLayout>
